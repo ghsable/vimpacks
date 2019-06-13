@@ -1,5 +1,8 @@
 # Vimpacks
 
+## GitHub Pages
+* [Vimpacks](https://ghsable.github.io/vimpacks/)
+
 ## Description
 This bash script is a simple Vim plugin manager.
 
