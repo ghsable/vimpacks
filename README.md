@@ -4,10 +4,10 @@
 * [Vimpacks](https://ghsable.github.io/vimpacks/)
 
 ## Description
-This bash script is a simple Vim plugin manager.
+Vimpacks is a simple Vim plugin manager.
 
 ## Requestment
-* [Bash](https://www.gnu.org/software/bash/)
+* [Bash](https://www.gnu.org/software/bash/) or [ZSH](http://www.zsh.org/)
 * [Git](https://github.com/git/git)
 * [Vim](https://github.com/vim/vim)
 
@@ -29,19 +29,18 @@ This bash script is a simple Vim plugin manager.
     │           └─ *            : plugins(:packadd)
     │              └─ *
     └─ vimpacks
-       ├─ vimpacks.sh    : simple Vim plugin manager
-       └─ vimpacks.txt   : your Vim plugins URL list
+       ├─ vimpacks.sh    : Vim plugin manager
+       └─ vimpacks.txt   : vimpacks.sh needs this text(your Vim plugins URL list)
 
 ## Usage
 Install:
 
-      # add your vim plugins URL
-      <editor> vimpacks.txt
-      # install vim plugins
-      ./vimpacks.sh install
+    # add your vim plugins URL
+    $(echo ${EDITOR}) vimpacks.txt
+    # install vim plugins
+    ./vimpacks.sh install
 
 Update:
 
-      ./vimpacks.sh update
-
+    ./vimpacks.sh update
 

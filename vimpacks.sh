@@ -1,11 +1,10 @@
 #!/bin/bash
 
-#
-# This bash script is a simple Vim plugin manager.
-#
+# Vimpacks is a simple Vim plugin manager.
+
 # Copyright© 2019 @suna All Rights Reserved.
 # https://ghsable.github.io/
-#
+
 
 # GLOBAL VARIABLE
 readonly VIM_START_DIR=~/.vim/pack/mypackage/start
