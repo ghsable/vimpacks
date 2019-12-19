@@ -21,9 +21,9 @@ DESCRIPTION:
   This bash script is a simple plugin manager for Vim.
 
 USAGE:
-  ${0} install : Install plugins
-  ${0} update  : Update  plugins
-  ${0} *       : Usage
+  ${0} idempotency : Install plugins
+  ${0} update      : Update  plugins
+  ${0} *           : Usage
 
 CHECK:
   ls -l ${VIM_START_DIR}
@@ -34,6 +34,35 @@ exit 1
 }
 
 case ${1} in
+  idempotency)
+    # make directory workspace
+    [ -d /tmp/vimpacks/master ] || mkdir -pv /tmp/vimpacks/master
+    # ------
+    # make file start_dir/master
+    for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' $(dirname ${0})/vimpacks.txt)
+    do
+      # start_dir/master
+      GITCLONEDIR_NAME=`echo ${GITREPOSITORY_URL} | cut -d "/" -f 5-5 | rev | cut -c 5- | rev`
+
+      # start_dir
+      git clone --depth=1 --recursive ${GITREPOSITORY_URL} ${VIM_START_DIR}/${GITCLONEDIR_NAME} 2>/dev/null
+
+      # master
+      mkdir -pv /tmp/vimpacks/master/${GITCLONEDIR_NAME}
+    done
+    # start_dir
+    ls ${VIM_START_DIR} >/tmp/vimpacks/vim_start_dir.txt
+    # mastar
+    ls /tmp/vimpacks/master >/tmp/vimpacks/master.txt
+    # ------
+    # ------
+    # make file remove-list
+    diff /tmp/vimpacks/vim_start_dir.txt /tmp/vimpacks/master.txt | grep -e "<" | cut -c 3- >/tmp/vimpacks/remove_list.txt
+    # uninstall
+    cd /tmp/vimpacks/master
+    rm -rf $(cat /tmp/vimpacks/remove_list.txt)
+    # ------
+    ;;
   install)
     for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' $(dirname ${0})/vimpacks.txt)
     do
@@ -60,7 +89,7 @@ case ${1} in
         else
           echo "UPDATED : ${GITCLONEDIR_NAME}"
           cd ${VIM_START_DIR}
-        fi 
+        fi
       else
         echo "PLEASE INSTALL : ${GITCLONEDIR_NAME}"
       fi
