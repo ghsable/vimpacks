@@ -38,13 +38,13 @@ case ${1} in
     # make directory workspace
     [ -d ${WORKSPACE_DIR}/master ] || mkdir -pv ${WORKSPACE_DIR}/master >/dev/null
     # ------
-    # make file start_dir/master
+    # make file start/master
     for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' $(dirname ${0})/vimpacks.txt)
     do
-      # start_dir/master[1/1]
+      # start/master[1/1]
       GITCLONEDIR_NAME=`echo ${GITREPOSITORY_URL} | cut -d "/" -f 5-5 | rev | cut -c 5- | rev`
 
-      # start_dir[1/2] - INSTALL
+      # start[1/2] - INSTALL
       git clone --depth=1 --recursive ${GITREPOSITORY_URL} ${VIM_START_DIR}/${GITCLONEDIR_NAME} 2>/dev/null
       if [ "${?}" = "0" ]; then
         echo "-> (1/1) ${GITCLONEDIR_NAME}"
@@ -55,7 +55,7 @@ case ${1} in
       # master[1/2]
       mkdir -pv ${WORKSPACE_DIR}/master/${GITCLONEDIR_NAME} >/dev/null
     done
-    # start_dir[2/2]
+    # start[2/2]
     ls ${VIM_START_DIR} >${WORKSPACE_DIR}/vim_start_dir.txt
     # mastar[2/2]
     ls ${WORKSPACE_DIR}/master >${WORKSPACE_DIR}/master.txt
