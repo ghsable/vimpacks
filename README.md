@@ -32,11 +32,11 @@ Vimpacks is Vim7later plugin management support tool.
 Idempotency:
 
     # Add your Vim plugins URL
-    $(echo ${EDITOR}) /path/to/vimpacks.txt
+    $(echo ${EDITOR}) /path/to/vimpacks/vimpacks.txt
     # Idempotency Vim plugins
-    /path/to/vimpacks.sh idempotency
+    /path/to/vimpacks/vimpacks.sh idempotency
 
 Update:
 
-    /path/to/vimpacks.sh update
+    /path/to/vimpacks/vimpacks.sh update
 
