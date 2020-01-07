@@ -3,22 +3,8 @@
 #   This file is your Vim plugins URL list.
 #
 # FORMAT:
-#   # Comment
+#   # URL only
 #   https://github.com/xxx/xxx.git
-#
-# EXAMPLES:
-#
-# rust-lang/rust.vim(https://github.com/rust-lang/rust.vim)
-https://github.com/rust-lang/rust.vim.git
-
-# vim-syntastic/syntastic(https://github.com/vim-syntastic/syntastic)
-https://github.com/vim-syntastic/syntastic.git
-
-# racer-rust/vim-racer(https://github.com/racer-rust/vim-racer)
-https://github.com/racer-rust/vim-racer.git
 # ---------------------------------
-# Try write your Vim plugins:
-# xxx/xxx
+# Create your own list :D
 
-
-# EOF

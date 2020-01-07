@@ -4,7 +4,7 @@
 * [Vimpacks](https://ghsable.github.io/vimpacks/)
 
 ## Description
-Vimpacks is a simple Vim plugin manager.
+Vimpacks is Vim7later plugin management support tool.
 
 ## Requestment
 * [Bash](https://www.gnu.org/software/bash/) or [ZSH](http://www.zsh.org/)
@@ -13,8 +13,7 @@ Vimpacks is a simple Vim plugin manager.
 
 ## Installation
 
-    git clone --depth=1 https://github.com/ghsable/vimpacks.git ~/vimpacks
-    cd ~/vimpacks
+    git clone --depth=1 https://github.com/ghsable/vimpacks.git /path/to/vimpacks
 
 ## Tree Description
 
@@ -22,25 +21,22 @@ Vimpacks is a simple Vim plugin manager.
     ├─ .vim
     │  └─ pack
     │     └─ mypackage
-    │        ├─ start
-    │        │  └─ *            : plugins(autoload)
-    │        │     └─ *
-    │        └─ opt
-    │           └─ *            : plugins(:packadd)
+    │        └─ start
+    │           └─ *            : plugins(autoload)
     │              └─ *
     └─ vimpacks
        ├─ vimpacks.sh    : Vim plugin manager
        └─ vimpacks.txt   : vimpacks.sh needs this text(your Vim plugins URL list)
 
 ## Usage
-Install:
+Idempotency:
 
-    # add your vim plugins URL
-    $(echo ${EDITOR}) vimpacks.txt
-    # install vim plugins
-    ./vimpacks.sh install
+    # Add your Vim plugins URL
+    $(echo ${EDITOR}) /path/to/vimpacks.txt
+    # Idempotency Vim plugins
+    /path/to/vimpacks.sh idempotency
 
 Update:
 
-    ./vimpacks.sh update
+    /path/to/vimpacks.sh update
 
