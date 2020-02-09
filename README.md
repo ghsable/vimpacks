@@ -7,6 +7,7 @@
 Vimpacks is Vim7later plugin management support tool.
 
 ## DEMO
+<img src="https://raw.githubusercontent.com/ghsable/vimpacks/master/README.gif" alt="README.gif">
 
 ## Requestment
 * [Bash](https://www.gnu.org/software/bash/) or [ZSH](http://www.zsh.org/)
