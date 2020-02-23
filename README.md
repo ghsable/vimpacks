@@ -5,6 +5,7 @@
 
 ## Description
 Vimpacks is Vim7later plugin management support tool.
+Make `vimpacks.txt` the same as `~/.vim/pack/mypackage/start/*`.
 
 ## DEMO
 <img src="https://raw.githubusercontent.com/ghsable/vimpacks/master/README.gif" alt="README.gif">
@@ -32,14 +33,16 @@ Vimpacks is Vim7later plugin management support tool.
        └─ vimpacks.txt   : vimpacks.sh needs this text(your Vim plugins URL list)
 
 ## Usage
-Idempotency:
+Idempotent:
 
     # Add your Vim plugins URL
     $(echo ${EDITOR}) /path/to/vimpacks/vimpacks.txt
-    # Idempotency Vim plugins
-    /path/to/vimpacks/vimpacks.sh idempotency
+    # Idempotent Vim plugins
+    /path/to/vimpacks/vimpacks.sh idempotent
 
 Update:
 
     /path/to/vimpacks/vimpacks.sh update
 
+## Concept
+* [NixOS](https://nixos.org/)

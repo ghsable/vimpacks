@@ -20,9 +20,9 @@ DESCRIPTION:
   This bash script is a simple plugin manager for Vim.
 
 USAGE:
-  ${0} idempotency : Idempotency
-  ${0} update      : Update
-  ${0} *           : Usage
+  ${0} idempotent : Idempotent vimpacks.txt
+  ${0} update     : Update
+  ${0} *          : Usage
 
 CHECK:
   ls -l ${VIM_START_DIR}
@@ -32,7 +32,7 @@ exit 1
 }
 
 case ${1} in
-  idempotency)
+  idempotent)
     # set variable
     readonly WORKSPACE_DIR=/tmp/vimpacks
     # make directory workspace
