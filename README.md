@@ -4,7 +4,7 @@
 * [Vimpacks](https://ghsable.github.io/vimpacks/)
 
 ## Description
-Vimpacks is Vim7later plugin management support tool.
+Vimpacks is Vim7later plugin management support tool.  
 Make `vimpacks.txt` the same as `~/.vim/pack/mypackage/start/*`.
 
 ## DEMO
