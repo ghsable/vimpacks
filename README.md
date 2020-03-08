@@ -44,5 +44,5 @@ Update:
 
     /path/to/vimpacks/vimpacks.sh update
 
-## Concept
+## Thanks to ...
 * [NixOS](https://nixos.org/)
