@@ -23,7 +23,7 @@ This script depends on following commands :
 
 ## Installation
 
-    git clone --depth=1 https://github.com/ghsable/vimpacks.git /path/to/vimpacks.sh
+    git clone --depth=1 https://github.com/ghsable/vimpacks.sh.git /path/to/vimpacks.sh
 
 ## Usage
 Idempotent :
