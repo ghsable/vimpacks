@@ -40,7 +40,8 @@ Update :
 > * [NixOS](https://nixos.org/)
 
 ## TODO
-* opt directory
+* ~/.config/vimpacks.list
+* opt directory(2config files)
 * makefile
 * README.md
 * README.gif
