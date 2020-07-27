@@ -1,15 +1,14 @@
 # vimpacks.sh
-[vimpacks.sh](https://ghsable.github.io/vimpacks/) is a plugin management tool for [Vim7 and later](https://github.com/vim/vim).
+[vimpacks.sh](https://ghsable.github.io/vimpacks.sh/) is a plugin management tool for [Vim7 and later](https://github.com/vim/vim).
 
 Manage your plugins simply with a script and text.
 
     <HOME>
     ├─ .vim
     │  └─ pack
-    │     └─ mypackage
+    │     └─ vimpacks
     │        └─ start
     │           └─ *            : plugins(autoload)
-    │              └─ *
     └─ vimpacks
        ├─ vimpacks.sh    : script
        └─ vimpacks.txt   : text
@@ -41,7 +40,6 @@ Update :
 > * [NixOS](https://nixos.org/)
 
 ## TODO
-* directory name(mypackage)
 * opt directory
 * makefile
 * README.md

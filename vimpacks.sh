@@ -7,7 +7,7 @@
 
 # ------
 # GLOBAL VARIABLE
-readonly VIM_START_DIR=~/.vim/pack/mypackage/start
+readonly VIM_START_DIR=~/.vim/pack/vimpacks/start
 
 # INITIALIZE
 [ -d ${VIM_START_DIR} ] || mkdir -pv ${VIM_START_DIR} >/dev/null
