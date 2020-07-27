@@ -11,7 +11,7 @@ Manage your plugins simply with a script and text.
     │           └─ *            : plugins(autoload)
     └─ vimpacks
        ├─ vimpacks.sh    : script
-       └─ vimpacks.txt   : text
+       └─ vimpacks.list  : text
 
 ![README.gif](https://raw.githubusercontent.com/ghsable/vimpacks/master/README.gif)
 
@@ -28,7 +28,7 @@ This script depends on following commands :
 Idempotent :
 
     # Add your Vim plugins URL
-    $(echo ${EDITOR}) /path/to/vimpacks/vimpacks.txt
+    $(echo ${EDITOR}) /path/to/vimpacks/vimpacks.list
     # Idempotent Vim plugins
     /path/to/vimpacks/vimpacks.sh idempotent
 

@@ -20,7 +20,7 @@ DESCRIPTION:
   This bash script is a simple plugin manager for Vim.
 
 USAGE:
-  ${0} idempotent : Idempotent vimpacks.txt
+  ${0} idempotent : Idempotent vimpacks.list
   ${0} update     : Update
   ${0} *          : Usage
 
@@ -39,7 +39,7 @@ case ${1} in
     [ -d ${WORKSPACE_DIR}/master ] || mkdir -pv ${WORKSPACE_DIR}/master >/dev/null
     # ------
     # make file start/master
-    for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' $(dirname ${0})/vimpacks.txt)
+    for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' $(dirname ${0})/vimpacks.list)
     do
       # start/master[1/1]
       GITCLONEDIR_NAME=`echo ${GITREPOSITORY_URL} | cut -d "/" -f 5-5 | rev | cut -c 5- | rev`
@@ -74,7 +74,7 @@ case ${1} in
     rm -rf ${WORKSPACE_DIR}
     ;;
   update)
-    for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' $(dirname ${0})/vimpacks.txt)
+    for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' $(dirname ${0})/vimpacks.list)
     do
       GITCLONEDIR_NAME=`echo ${GITREPOSITORY_URL} | cut -d "/" -f 5-5 | rev | cut -c 5- | rev`
       if [ -d ${VIM_START_DIR}/${GITCLONEDIR_NAME} ]; then
