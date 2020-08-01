@@ -10,7 +10,7 @@ Manage your plugins simply with a script and text.
     │        ├─ start
     │        │ └─ *          : plugins(autoload)
     │        └─ opt
-    │           └─ *          : plugins(lazyload)
+    │          └─ *          : plugins(lazyload)
     └─ .config
        └─ vimpacks
           ├─ start.list : config-file(start)
