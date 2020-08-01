@@ -45,4 +45,5 @@ update :
     vimpacks -u
 
 ## Thanks
+I referred to the following philosophy :
 > * [NixOS](https://nixos.org/)
