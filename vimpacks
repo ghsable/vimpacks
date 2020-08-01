@@ -1,0 +1,109 @@
+#!/bin/bash
+
+# Copyright© 2019 @suna All Rights Reserved.
+# https://ghsable.github.io/
+
+# USAGE
+function usage() {
+cat<< _EOT_
+DESCRIPTION:
+  vimpacks is a plugin management tool for Vim7 and later.
+
+USAGE:
+  vimpacks -i : Idempotent
+  vimpacks -u : Update
+  vimpacks *  : Usage
+
+CHECK:
+  ls -l ~/.vim/pack/vimpacks/start
+  ls -l ~/.vim/pack/vimpacks/opt
+
+_EOT_
+exit 1
+}
+
+case ${1} in
+  -i)
+    function idempotent() {
+        # set variable
+        VIM_PACK_DIR=~/.vim/pack/vimpacks/${1}
+        WORKSPACE_DIR=/tmp/vimpacks/${1}
+        VIMPACKS_CONFIGFILE=${HOME}/.config/vimpacks/${1}.list
+        # make directory workspace
+        [ -d ${VIM_PACK_DIR} ] || mkdir -pv ${VIM_PACK_DIR} >/dev/null
+        [ -d ${WORKSPACE_DIR}/master ] || mkdir -pv ${WORKSPACE_DIR}/master >/dev/null
+        # ------
+        echo ''
+        echo "########## ${1} ##########"
+        echo "LOADING ${VIMPACKS_CONFIGFILE} ..."
+        echo ''
+        # make file master
+        for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' ${VIMPACKS_CONFIGFILE})
+        do
+          # pack/master[1/1]
+          GITREPOSITORY_NAME=`echo ${GITREPOSITORY_URL} | cut -d "/" -f 5-5 | rev | cut -c 5- | rev`
+
+          # pack[1/2] - INSTALL
+          git clone --depth=1 --recursive ${GITREPOSITORY_URL} ${VIM_PACK_DIR}/${GITREPOSITORY_NAME} 2>/dev/null
+          if [ "${?}" = "0" ]; then
+            echo "-> (1/1) ${GITREPOSITORY_NAME}"
+          else
+            echo "INSTALLED : ${GITREPOSITORY_NAME}"
+          fi
+
+          # master[1/2]
+          mkdir -pv ${WORKSPACE_DIR}/master/${GITREPOSITORY_NAME} >/dev/null
+        done
+        # pack[2/2]
+        ls ${VIM_PACK_DIR} >${WORKSPACE_DIR}/vim_pack_dir.list
+        # mastar[2/2]
+        ls ${WORKSPACE_DIR}/master >${WORKSPACE_DIR}/master.list
+        # ------
+        # ------
+        # make file uninstall-list
+        diff ${WORKSPACE_DIR}/vim_pack_dir.list ${WORKSPACE_DIR}/master.list | grep -e "<" | cut -c 3- >${WORKSPACE_DIR}/uninstall.list
+        # uninstall
+        cd ${VIM_PACK_DIR}
+        echo "-- UNINSTALL -------------------"
+        rm -rf $(cat ${WORKSPACE_DIR}/uninstall.list)
+        cat ${WORKSPACE_DIR}/uninstall.list
+        echo "----------------- UNINSTALED -->"
+        # ------
+        # clean
+        rm -rf ${WORKSPACE_DIR}
+    }
+    idempotent start
+    idempotent opt
+    ;;
+  -u)
+    function update() {
+        # set variable
+        VIM_PACK_DIR=~/.vim/pack/vimpacks/${1}
+        VIMPACKS_CONFIGFILE=${HOME}/.config/vimpacks/${1}.list
+        echo ''
+        echo "########## ${1} ##########"
+        echo ''
+        for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' ${VIMPACKS_CONFIGFILE})
+        do
+          GITREPOSITORY_NAME=`echo ${GITREPOSITORY_URL} | cut -d "/" -f 5-5 | rev | cut -c 5- | rev`
+          if [ -d ${VIM_PACK_DIR}/${GITREPOSITORY_NAME} ]; then
+            cd ${VIM_PACK_DIR}/${GITREPOSITORY_NAME}
+            GITPULL_STDOUT=`git pull`
+            if [ "${GITPULL_STDOUT}" != "Already up to date." ]; then
+              git submodule foreach git pull
+              echo "-> (1/1) ${GITREPOSITORY_NAME}"
+            else
+              echo "UPDATED : ${GITREPOSITORY_NAME}"
+            fi
+          else
+            echo "NO SUCH : ${GITREPOSITORY_NAME}"
+          fi
+        done
+    }
+    update start
+    update opt
+    ;;
+  *)
+    usage
+    ;;
+esac

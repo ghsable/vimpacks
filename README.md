@@ -1,5 +1,5 @@
-# vimpacks.sh
-[vimpacks.sh](https://ghsable.github.io/vimpacks.sh/) is a plugin management tool for [Vim7 and later](https://github.com/vim/vim).
+# vimpacks
+[vimpacks](https://ghsable.github.io/vimpacks/) is a plugin management tool for [Vim7 and later](https://github.com/vim/vim).
 
 Manage your plugins simply with a script and text.
 
@@ -7,11 +7,14 @@ Manage your plugins simply with a script and text.
     ├─ .vim
     │  └─ pack
     │     └─ vimpacks
-    │        └─ start
-    │           └─ *            : plugins(autoload)
-    └─ vimpacks
-       ├─ vimpacks.sh    : script
-       └─ vimpacks.list  : text
+    │        ├─ start
+    │        │ └─ *          : plugins(autoload)
+    │        └─ opt
+    │           └─ *          : plugins(lazyload)
+    └─ .config
+       └─ vimpacks
+          ├─ start.list : config-file(start)
+          └─ opt.list   : config-file(opt)
 
 ![README.gif](https://raw.githubusercontent.com/ghsable/vimpacks/master/README.gif)
 
@@ -22,26 +25,24 @@ This script depends on following commands :
 
 ## Installation
 
-    git clone --depth=1 https://github.com/ghsable/vimpacks.sh.git /path/to/vimpacks.sh
+    # Download
+    git clone --depth=1 https://github.com/ghsable/vimpacks.git
+    # Deploy config-files
+    cp -r vimpacks/.config ~/
+    # Set env
+    export PATH=${PATH}:/path/to/vimpacks
+    # Edit config-files
+    $(echo ${EDITOR}) ~/.config/vimpacks/start.list
+    $(echo ${EDITOR}) ~/.config/vimpacks/opt.list
 
 ## Usage
-Idempotent :
+idempotent :
 
-    # Add your Vim plugins URL
-    $(echo ${EDITOR}) /path/to/vimpacks/vimpacks.list
-    # Idempotent Vim plugins
-    /path/to/vimpacks/vimpacks.sh idempotent
+    vimpacks -i
 
-Update :
+update :
 
-    /path/to/vimpacks/vimpacks.sh update
+    vimpacks -u
 
 ## Thanks
 > * [NixOS](https://nixos.org/)
-
-## TODO
-* ~/.config/vimpacks.list
-* opt directory(2config files)
-* makefile
-* README.md
-* README.gif
