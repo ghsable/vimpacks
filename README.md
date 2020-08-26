@@ -1,6 +1,5 @@
 # vimpacks
-[vimpacks](https://ghsable.github.io/vimpacks/) is a plugin management tool for [Vim7 and later](https://github.com/vim/vim).
-
+[vimpacks](https://ghsable.github.io/vimpacks/) is a plugin management tool for [Vim7 and later](https://github.com/vim/vim).  
 Manage your plugins simply with a script and text.
 
     <HOME>
