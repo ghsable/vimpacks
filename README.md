@@ -16,7 +16,7 @@ Manage your plugins simply with a script and text.
           ├─ start.list : config-file(start)
           └─ opt.list   : config-file(opt)
 
-![README.gif](https://raw.githubusercontent.com/ghsable/vimpacks/master/README.gif)
+![README.gif](https://raw.githubusercontent.com/ghsable/vimpacks/main/README.gif)
 
 ## Dependency
 This script depends on following commands :
