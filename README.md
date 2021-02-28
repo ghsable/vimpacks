@@ -30,19 +30,29 @@ This script depends on following commands :
     # Deploy config-files
     cp -r vimpacks/.config ~/
     # Set env
+    export EDITOR='your text editor'
     export PATH=${PATH}:/path/to/vimpacks
     # Edit config-files
-    $(echo ${EDITOR}) ~/.config/vimpacks/start.list
-    $(echo ${EDITOR}) ~/.config/vimpacks/opt.list
+    vimpacks -e start
+    vimpacks -e opt
 
 ## Usage
-idempotent :
+INSTALL/UNINSTALL :
 
     vimpacks -i
 
-update :
+UPDATE :
 
     vimpacks -u
+
+EDIT :
+
+    vimpacks -e start
+    vimpacks -e opt
+
+HELP :
+
+    vimpacks -h
 
 ## Thanks
 I referred to the following philosophy :

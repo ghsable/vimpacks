@@ -6,15 +6,16 @@
 # USAGE
 function usage() {
 cat<< _EOT_
-DESCRIPTION:
-  vimpacks is a plugin management tool for Vim7 and later.
+vimpacks is a plugin management tool for Vim7 and later.
 
-USAGE:
-  vimpacks -i : Idempotent
-  vimpacks -u : Update
-  vimpacks *  : Usage
+Usage:
+  vimpacks -i       : INSTALL/UNINSTALL
+  vimpacks -u       : UPDATE
+  vimpacks -e start : EDIT config-start
+  vimpacks -e opt   : EDIT config-opt
+  vimpacks -h       : HELP
 
-CHECK:
+Check:
   ls -l ~/.vim/pack/vimpacks/start
   ls -l ~/.vim/pack/vimpacks/opt
 
@@ -25,24 +26,29 @@ exit 1
 case ${1} in
   -i)
     function idempotent() {
-        # set variable
         VIM_PACK_DIR=~/.vim/pack/vimpacks/${1}
         WORKSPACE_DIR=/tmp/vimpacks/${1}
         VIMPACKS_CONFIGFILE=${HOME}/.config/vimpacks/${1}.list
-        # make directory workspace
-        [ -d ${VIM_PACK_DIR} ] || mkdir -pv ${VIM_PACK_DIR} >/dev/null
-        [ -d ${WORKSPACE_DIR}/main ] || mkdir -pv ${WORKSPACE_DIR}/main >/dev/null
-        # ------
+
+        if [ ! -f "${VIMPACKS_CONFIGFILE}" ]; then
+          echo "NO SUCH : ${VIMPACKS_CONFIGFILE}"
+          exit 1
+        fi
+
         echo ''
         echo "---------- ${1} ---------- "
         echo "LOADING ${VIMPACKS_CONFIGFILE} ..."
         echo ''
+
+        # ------ INSTALL
+        # make directory: workspace
+        [ -d ${VIM_PACK_DIR} ] || mkdir -pv ${VIM_PACK_DIR} >/dev/null
+        [ -d ${WORKSPACE_DIR}/main ] || mkdir -pv ${WORKSPACE_DIR}/main >/dev/null
         # make pack/main
         for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' ${VIMPACKS_CONFIGFILE})
         do
           # pack/main[1/1]
           GITREPOSITORY_NAME=`echo ${GITREPOSITORY_URL} | cut -d "/" -f 5-5 | rev | cut -c 5- | rev`
-
           # pack[1/2] - INSTALL
           git clone --depth=1 --recursive ${GITREPOSITORY_URL} ${VIM_PACK_DIR}/${GITREPOSITORY_NAME} 2>/dev/null
           if [ "${?}" = "0" ]; then
@@ -50,7 +56,6 @@ case ${1} in
           else
             echo "INSTALLED : ${GITREPOSITORY_NAME}"
           fi
-
           # main[1/2]
           mkdir -pv ${WORKSPACE_DIR}/main/${GITREPOSITORY_NAME} >/dev/null
         done
@@ -59,32 +64,39 @@ case ${1} in
         # main[2/2]
         ls ${WORKSPACE_DIR}/main >${WORKSPACE_DIR}/main.list
         # ------
-        # ------
+        # ------ UNINSTALL
         # make file uninstall-list
         diff ${WORKSPACE_DIR}/vim_pack_dir.list ${WORKSPACE_DIR}/main.list | grep -e "<" | cut -c 3- >${WORKSPACE_DIR}/uninstall.list
-        # uninstall
-        cd ${VIM_PACK_DIR}
-        echo "-- UNINSTALL -------------------"
-        rm -rf $(cat ${WORKSPACE_DIR}/uninstall.list)
-        cat ${WORKSPACE_DIR}/uninstall.list
-        echo "----------------- UNINSTALED -->"
-        # ------
+        # UNINSTALL
+        if [ -s ${WORKSPACE_DIR}/uninstall.list ]; then
+          cd ${VIM_PACK_DIR}
+          echo "-- UNINSTALL -------------------"
+          rm -rf $(cat ${WORKSPACE_DIR}/uninstall.list)
+          cat ${WORKSPACE_DIR}/uninstall.list
+          echo "----------------- UNINSTALED -->"
+        fi
         # ------
         # clean
         rm -rf ${WORKSPACE_DIR}
-        # ------
     }
     idempotent start
     idempotent opt
     ;;
   -u)
     function update() {
-        # set variable
         VIM_PACK_DIR=~/.vim/pack/vimpacks/${1}
         VIMPACKS_CONFIGFILE=${HOME}/.config/vimpacks/${1}.list
+
+        if [ ! -f "${VIMPACKS_CONFIGFILE}" ]; then
+          echo "NO SUCH : ${VIMPACKS_CONFIGFILE}"
+          exit 1
+        fi
+
         echo ''
         echo "---------- ${1} ----------"
         echo ''
+
+        # ------ Update
         for GITREPOSITORY_URL in $(grep -v -e '^$' -e '^#' ${VIMPACKS_CONFIGFILE})
         do
           GITREPOSITORY_NAME=`echo ${GITREPOSITORY_URL} | cut -d "/" -f 5-5 | rev | cut -c 5- | rev`
@@ -101,9 +113,33 @@ case ${1} in
             echo "NO SUCH : ${GITREPOSITORY_NAME}"
           fi
         done
+        # ------
     }
     update start
     update opt
+    ;;
+  -e)
+    function edit() {
+        VIMPACKS_CONFIGFILE=${HOME}/.config/vimpacks/${1}.list
+        #EDITOR=""
+
+        if [ ! -f "${VIMPACKS_CONFIGFILE}" ]; then
+          echo "NO SUCH : ${VIMPACKS_CONFIGFILE}"
+          exit 1
+        fi
+
+        if [ -z "${EDITOR}" ]; then
+          EDITOR="vi"
+        fi
+
+        $(echo ${EDITOR}) ${VIMPACKS_CONFIGFILE}
+    }
+    if [ "${2}" != "start" ] && [ "${2}" != "opt" ]; then
+      echo "'""${2}""'"": option is not supported"
+      exit 1
+    fi
+    if [ "${2}" = "start" ]; then edit start; fi
+    if [ "${2}" = "opt"   ]; then edit opt;   fi
     ;;
   *)
     usage
