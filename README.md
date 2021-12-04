@@ -17,6 +17,7 @@ Manage your plugins simply with a script and text.
           └─ opt.list   : config-file(opt)
 
 ![README.gif](https://raw.githubusercontent.com/ghsable/vimpacks/main/README.gif)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fghsable%2Fvimpacks.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fghsable%2Fvimpacks?ref=badge_shield)
 
 ## Dependency
 This script depends on following commands :
@@ -57,3 +58,7 @@ HELP :
 ## Thanks
 I referred to the following philosophy :
 > * [NixOS](https://nixos.org/)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fghsable%2Fvimpacks.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fghsable%2Fvimpacks?ref=badge_large)
