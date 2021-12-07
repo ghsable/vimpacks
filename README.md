@@ -16,8 +16,7 @@
 
 ![README.gif](https://raw.githubusercontent.com/ghsable/vimpacks/main/README.gif)
 
-## Dependency
-This script depends on following commands :
+## Requirement
 * [Bash](https://www.gnu.org/software/bash/)
 * [Git](https://github.com/git/git)
 
