@@ -53,5 +53,4 @@ HELP :
     vimpacks -h
 
 ## Thanks
-I referred to the following philosophy :
-> * [NixOS](https://nixos.org/)
+* [NixOS](https://nixos.org/)
